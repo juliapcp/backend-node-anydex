@@ -10,7 +10,8 @@ Usuario.init({
         primaryKey: true
     },
     nome: DataTypes.STRING,
-    senha: DataTypes.STRING
+    senha: DataTypes.STRING,
+    imagem: DataTypes.STRING
 }, { 
     sequelize: sequelizeCon, 
     schema: 'public',

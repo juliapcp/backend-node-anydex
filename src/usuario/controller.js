@@ -45,6 +45,4 @@ class UsuariosController {
         return res.json({token: meuJwt});
     }
 }
-
-
 module.exports = UsuariosController;
