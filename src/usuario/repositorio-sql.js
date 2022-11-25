@@ -9,15 +9,6 @@ class UsuariosRepository {
         await Usuario.create(usuario);
     }
 
-    async findOneEmailSenha(email, senha) {
-        const usuario = await Usuario.findOne({
-            where: {
-                email, senha
-            }
-        });
-        return usuario;
-    }
-
 }
 
 module.exports = UsuariosRepository;

@@ -11,12 +11,12 @@ Usuario.init({
     },
     nome: DataTypes.STRING,
     senha: DataTypes.STRING,
-    imagem: DataTypes.STRING
+    imagem: DataTypes.STRING,
+    ativo: DataTypes.BOOLEAN
 }, { 
     sequelize: sequelizeCon, 
     schema: 'public',
     modelName: 'usuario'
 });
-
 
 module.exports = { Usuario };
