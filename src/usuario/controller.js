@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const { Usuario } = require('./model');
 const UsuariosRepository = require('./repositorio-sql');
 const bcrypt = require('bcrypt');
+const sequelize = require('sequelize');
 
 class UsuariosController {
     constructor() {
@@ -38,6 +39,7 @@ class UsuariosController {
             }
         });
 
+        if (!usuarioEcontrado) return res.status(400).json({ message: "E-mail ou senha incorretos." });
         const confere = bcrypt.compareSync(senha, usuarioEcontrado.senha);
 
         if (!confere) {
@@ -48,9 +50,10 @@ class UsuariosController {
     }
 
     async listar(req, res) {
-        const { pagina, registrospagina, colunaordenacao, filtrowhere, tipoordenacao } = req.headers;
+        console.log("----> listar usuários")
+        const { pagina, registrospagina, colunaordenacao, filtrowhere, tipoordenacao } = req.query;
         const listaUsuarios = await Usuario.findAndCountAll({
-            where: { nome: { [Op.like]: `%${filtrowhere}%` }, ativo: true },
+            where: { nome: sequelize.where(sequelize.fn('LOWER', sequelize.col('nome')), 'LIKE', '%' + filtrowhere.toLowerCase() + '%'), ativo: true },
             order: [[colunaordenacao, tipoordenacao]],
             limit: registrospagina,
             offset: (0 + (parseInt(pagina) - 1) * parseInt(registrospagina))

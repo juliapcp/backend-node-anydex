@@ -20,8 +20,9 @@ class JardimUsuarioController {
     }
 
     async criar(req, res){
+        console.log('----> criar jardimUsuario')
         const { video, usuarioEmail, florId } = req.body;
-        const registroEncontrado = await Usuario.findAll({
+        const registroEncontrado = await JardimUsuario.findOne({
             where: {
                 usuarioEmail,
                 florId
@@ -32,9 +33,9 @@ class JardimUsuarioController {
             return res.json({ message: "Esta flor já faz parte do seu jardim!" })
         }
         const jardimUsuario = await JardimUsuario.create({
-            video, usuarioEmail, florId
+            video, usuarioEmail: usuarioEmail, florId: florId
         });
         return res.status(201).json(jardimUsuario);
     }
 }
-module.exports = FlorsController;
+module.exports = JardimUsuarioController;

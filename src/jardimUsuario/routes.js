@@ -5,6 +5,7 @@ const router = Router();
 const JardimUsuarioController = require('./controller');
 const controller = new JardimUsuarioController();
 
+router.post('/', isAuth, (req, res) => controller.criar(req, res));
 router.get('/:emailUsuario', isAuth, (req, res) => controller.getByUsuario(req, res));
 router.delete('/:id', isAuth, (req, res) => controller.delete(req, res));
 
